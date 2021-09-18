@@ -1,28 +1,24 @@
 package com.example.ukol_kurzovni_listky;
 
 import lombok.Data;
-import org.springframework.data.annotation.Id;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.*;
+import javax.persistence.Id;
 
 @Data
 @Entity
 public class ExchangeRateDto {
-@Id
-@GeneratedValue(strategy = GenerationType.AUTO)
+
     private String country;
     private String currency;
     private String currencyFullName;
     private Integer quantity;
     private Double buy;
     private Double sell;
-    @javax.persistence.Id
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
 
