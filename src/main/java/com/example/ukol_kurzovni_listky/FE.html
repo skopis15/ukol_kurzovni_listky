@@ -5,8 +5,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tabulka</title>
     <style>
-        table, th, td {
-            border:1px solid #4545ea;
+        #table {
+            font-family: Arial, Helvetica, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        #table td, #table th {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
+        }
+
+        #table tr:nth-child(even){background-color: #f2f2f2;}
+
+        #table tr:hover {background-color: #ddd;}
+
+        #table th {
+            padding-top: 12px;
+            padding-bottom: 12px;
+            background-color: #757575;
+            color: white;
         }
     </style>
 </head>
@@ -25,17 +44,16 @@
 </table>
 <script>
     async function myCreateFunction(numberOfRow) {
-        const response = await fetch("http://localhost:9090/rates");
-        const data = await response.json();
+        let data = await getApiData()
 
-        var table = document.getElementById("table");
-        var row = table.insertRow(1);
-        var cellCountry = row.insertCell(0);
-        var cellCurrency = row.insertCell(1);
-        var cellCurrencyName = row.insertCell(2);
-        var cellQuantity = row.insertCell(3);
-        var cellBuy = row.insertCell(4);
-        var cellSell = row.insertCell(5);
+        const table = document.getElementById("table");
+        const row = table.insertRow(1);
+        const cellCountry = row.insertCell(0);
+        const cellCurrency = row.insertCell(1);
+        const cellCurrencyName = row.insertCell(2);
+        const cellQuantity = row.insertCell(3);
+        const cellBuy = row.insertCell(4);
+        const cellSell = row.insertCell(5);
         cellCountry.innerHTML = data[numberOfRow].country;
         cellCurrency.innerHTML = data[numberOfRow].currency;
         cellCurrencyName.innerHTML = data[numberOfRow].currencyFullName;
@@ -46,15 +64,19 @@
 
 
     async function createTable(){
-        const response = await fetch("http://localhost:9090/rates");
-        const data = await response.json();
+        let data = await getApiData()
         let ids = data.length;
 
         for(var i = 0; i < ids; i++){
-            myCreateFunction(i)
+            await myCreateFunction(i)
         }
     }
     createTable();
+
+    async function getApiData(){
+        const response = await fetch("http://localhost:9090/rates");
+        return await response.json()
+    }
 
 </script>
 </body>
