@@ -1,13 +1,10 @@
 package com.example.ukol_kurzovni_listky;
 
-import lombok.Data;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 
-@Data
+import javax.persistence.*;
+
 @Entity
+@Table
 public class ExchangeRateDto {
 
     private String country;
